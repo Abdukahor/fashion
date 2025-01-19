@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Fashion & Beauty</title>
+    <style>
+        /* Сброс базовых отступов и боксовой модели */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Arial", sans-serif;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .hero {
+            position: relative;       /* важно для абсолютного позиционирования псевдоэлемента */
+            overflow: hidden;         /* чтобы обрезать выходящий за границы blur */
+            min-height: 300px;        /* задайте минимальную высоту секции */
+        }
+
+        /* Псевдоэлемент, служит фоновым слоем */
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("./images/hero.webp") center/cover no-repeat;
+            /*filter: blur(6px);        !* степень размытия *!*/
+            z-index: 0;               /* псевдоэлемент находится "под" текстом */
+        }
+
+        /* Контейнер с текстом */
+        .hero .container {
+            position: relative;       /* важно, чтобы текст был выше псевдоэлемента */
+            z-index: 1;
+            color: #fff;              /* выберите подходящий цвет для текста */
+            padding: 60px 20px;       /* отступы внутри секции */
+            text-align: center;
+            /* Можно дополнительно затемнить фон под текстом через полупрозрачный фон */
+             background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* О нас */
+        .about {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .about p {
+            max-width: 700px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Галерея */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        .gallery img {
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Услуги / Карточки */
+        .services {
+            text-align: center;
+            background: #fafafa;
+            padding: 40px 0;
+        }
+        .services h2 {
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        .service-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #fff;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: left;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .card-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        .card-content p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .card-content a {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #ff91af;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .card-content a:hover {
+            background: #e77899;
+        }
+
+        /* Контактная форма */
+        .contact {
+            padding: 40px 0;
+        }
+        .contact h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .contact-form button {
+            background-color: #ff91af;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .contact-form button:hover {
+            background-color: #e77899;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .gallery {
+                flex-direction: column;
+                align-items: center;
+            }
+            .service-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Шапка сайта (Hero) -->
+<section class="hero">
+    <div class="container">
+        <h1>Fashion & Beauty</h1>
+        <p>Будьте в тренде! Откройте для себя мир моды, красоты и вдохновения вместе с нами.</p>
+    </div>
+</section>
+
+<!-- О нас -->
+<section class="about">
+    <div class="container">
+        <h2>О нашем проекте</h2>
+        <p>Мы создали Fashion & Beauty, чтобы делиться новинками, трендами и советами из мира моды и индустрии красоты. Наша команда экспертов помогает подобрать стиль, макияж и уход так, чтобы каждый чувствовал себя уверенно и сиял в любой ситуации.</p>
+        <p>Следите за нашими статьями, lookbook'ами и мастер-классами, чтобы всегда оставаться на пике современного стиля.</p>
+    </div>
+</section>
+
+<!-- Галерея -->
+<section class="container">
+    <h2 style="text-align:center; margin-bottom: 20px;">Галерея</h2>
+    <div class="gallery">
+        <img src="./images/look1.webp" alt="Look 1">
+        <img src="./images/look2.webp" alt="Look 2">
+        <img src="./images/look3.webp" alt="Look 3">
+    </div>
+</section>
+
+<!-- Блок «Услуги» (пример карточек) -->
+<section class="services">
+    <div class="container">
+        <h2>Что мы предлагаем</h2>
+        <div class="service-cards">
+            <!-- Карточка 1 -->
+            <div class="card">
+                <img src="./images/makeup.webp" alt="Makeup">
+                <div class="card-content">
+                    <h3>Профессиональный макияж</h3>
+                    <p>Индивидуальный подбор цветовой гаммы и образа. Для торжеств, фотосессий и повседневной жизни.</p>
+                    <a href="#">Подробнее</a>
+                </div>
+            </div>
+            <!-- Карточка 2 -->
+            <div class="card">
+                <img src="./images/styling.webp" alt="Styling">
+                <div class="card-content">
+                    <h3>Имидж и стиль</h3>
+                    <p>Помощь в создании персонального гардероба, консультации по подбору вещей и аксессуаров.</p>
+                    <a href="#">Подробнее</a>
+                </div>
+            </div>
+            <!-- Карточка 3 -->
+            <div class="card">
+                <img src="./images/masterclass.webp" alt="Masterclass">
+                <div class="card-content">
+                    <h3>Мастер-классы</h3>
+                    <p>Обучающие семинары, вебинары и offline-встречи по макияжу, прическам и модным трендам.</p>
+                    <a href="#">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Контакты / Форма обратной связи -->
+<section class="contact">
+    <div class="container">
+        <h2>Оставьте заявку</h2>
+        <div class="contact-form">
+            <form>
+                <label for="name">Имя</label>
+                <input type="text" id="name" name="name" placeholder="Ваше имя" required />
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Ваш email" required />
+
+                <label for="message">Ваш вопрос или комментарий</label>
+                <textarea id="message" name="message" rows="5" placeholder="Чем мы можем помочь?"></textarea>
+
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Подвал сайта -->
+<footer>
+    <p>&copy; 2025 Fashion & Beauty. Все права защищены.</p>
+</footer>
+
+</body>
+</html>
